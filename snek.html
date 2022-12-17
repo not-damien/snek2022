@@ -13,30 +13,47 @@ display: flex;
 <script>
 let dx = 0//movement in x direction 
 let dy = 10//movement in y direction 
+let size = 300;
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext('2d');
 let snake = [  {x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150},];
+let apple = {x:15, y:15};
 ctx.fillStyle = "rgb(200, 0, 0)";
-ctx.fillRect(0, 0, 300, 300);
+ctx.fillRect(0, 0, size, size);
 	
 
 	
 	
 function drawSnakePart(snakePart) {  
-	ctx.fillStyle = 'lightgreen';  ctx.strokestyle = 'darkgreen';
+	ctx.fillStyle = 'lightgreen';
+	ctx.strokestyle = 'darkgreen';
 	ctx.fillRect(snakePart.x, snakePart.y, 10, 10);  ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 	}
 function drawSnake() {  snake.forEach(drawSnakePart);}
-
+function drawApple() {
+	ctx.fillStyle = 'red';
+	ctx.strokestyle = 'black';
+	ctx.fillect(apple.x, apple.y, 10, 10)
+	}
 function advanceSnake() {  
 	const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 	snake.unshift(head);
-	snake.pop();
+	if(head != apple){
+		snake.pop();
+	}else{
+		console.log('eating apple');
+	}
 	ctx.fillStyle = "rgb(200, 0, 0)";
-        ctx.fillRect(0, 0, 300, 300);
-	drawSnake()
+        ctx.fillRect(0, 0, size, size);
+	drawSnake();
+	drawApple();
 }
 
+function updateApple(){
+	apple.x = Math.floor(Math.random() * size);//update with random x in range 
+	apple.y = Math.floor(Math.random() * size);//update with random y in range
+	//check if in snek, continue calling until not in snek 
+}
 setInterval(advanceSnake, 500);
 	
 //add controls 
