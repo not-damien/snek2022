@@ -6,18 +6,19 @@ display: flex;
 }
 </style>
 <html>
+	<script src="snakegame.js"></script>
 	<div>
 <canvas id="gameCanvas" width="300" height="300"><canvas>
 	</div>
 </html>
 <script>
-let dx = 0//movement in x direction 
+	let dx = 0//movement in x direction 
 let dy = 10//movement in y direction 
 let size = 300;
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext('2d');
 let snake = [  {x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150},];
-let apple = {x:15, y:15};
+let apple = {x:10, y:10};
 ctx.fillStyle = "rgb(200, 0, 0)";
 ctx.fillRect(0, 0, size, size);
 	
@@ -38,10 +39,13 @@ function drawApple() {
 function advanceSnake() {  
 	const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 	snake.unshift(head);
-	if(head != apple){
-		snake.pop();
-	}else{
+	//todo add clause where snake eats itself 
+	if(head.x == apple.x && head.y == apple.y ){
 		console.log('eating apple');
+        updateApple();
+
+	}else{
+		snake.pop();
 	}
 	ctx.fillStyle = "grey";
         ctx.fillRect(0, 0, size, size);
@@ -50,11 +54,12 @@ function advanceSnake() {
 }
 
 function updateApple(){
-	apple.x = Math.floor(Math.random() * size);//update with random x in range 
-	apple.y = Math.floor(Math.random() * size);//update with random y in range
-	//check if in snek, continue calling until not in snek 
+    //check if in snek, continue calling until not in snek 
+	apple.x = Math.floor(Math.random() * 30) * 10;//update with random x in range 
+	apple.y = Math.floor(Math.random() * 30) * 10;//update with random y in range
+
 }
-setInterval(advanceSnake, 500);
+setInterval(advanceSnake, 1000);
 	
 //add controls 
 document.addEventListener('keydown', function(event) {
@@ -72,5 +77,5 @@ document.addEventListener('keydown', function(event) {
 	  dx = 10;
   }
 });	
-
-</script>
+	</script>
+	
