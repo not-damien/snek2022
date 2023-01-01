@@ -60,7 +60,7 @@ function advanceSnake() {
 		drawApple();
 }
 function snakeEatingSelf(head){
-	for(int i = 1; i < snake.length;i++){
+	for(let i = 1; i < snake.length;i++){
 		if(head.x == snake[i].x && head.y == snake[i].y ){
 			return true
 		}
