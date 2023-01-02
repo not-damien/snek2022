@@ -38,13 +38,16 @@ function drawApple() {
 function advanceSnake() {  
 	const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 	snake.unshift(head);
-	if(head.x > size || head.x < 0 || head.y > size || head.y < 0){
+	if(head.x > (size - 10) || head.x < 0 || head.y > (size - 10) || head.y < 0){
 		//gameover due do hitting edge
 		console.log("hit wall")
+		endGame();
+		
 	}
 	if(snakeEatingSelf(head)){
 		//gameover
 		console.log("eating self")
+		endGame();
 	}
 	if(head.x == apple.x && head.y == apple.y ){
 		console.log('eating apple');
@@ -72,8 +75,14 @@ function updateApple(){
 	apple.y = Math.floor(Math.random() * 30) * 10;//update with random y in range
 
 }
-setInterval(advanceSnake, 1000);
-	
+let myInterval = setInterval(advanceSnake, 150);
+function endGame(){
+	clearInterval(myInterval);
+	console.log("gameOver")
+	ctx.fillStyle = "blue"
+	ctx.font = "30px Arial";
+	ctx.strokeText("Hello World", 10, 50);
+}
 //add controls 
 document.addEventListener('keydown', function(event) {
   if (event.key === "ArrowUp") {
