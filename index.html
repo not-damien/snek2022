@@ -42,12 +42,14 @@ function advanceSnake() {
 		//gameover due do hitting edge
 		console.log("hit wall")
 		endGame();
+		return;
 		
 	}
 	if(snakeEatingSelf(head)){
 		//gameover
 		console.log("eating self")
 		endGame();
+		return;
 	}
 	if(head.x == apple.x && head.y == apple.y ){
 		console.log('eating apple');
@@ -79,9 +81,9 @@ let myInterval = setInterval(advanceSnake, 150);
 function endGame(){
 	clearInterval(myInterval);
 	console.log("gameOver")
-	ctx.fillStyle = "blue"
+	ctx.fillStyle = "red"
 	ctx.font = "30px Arial";
-	ctx.strokeText("Hello World", 10, 50);
+	ctx.strokeText("GAME OVER", 130, 50);
 }
 //add controls 
 document.addEventListener('keydown', function(event) {
