@@ -4,10 +4,18 @@ display: flex;
     align-items: center;
     justify-content: center;
 }
+h1{
+    font-size:50px;
+    color:green;
+  }
 </style>
 <html>
 	<div>
-<canvas id="gameCanvas" width="300" height="300"><canvas>
+		<h1>Snake</h1>
+	</div>
+	<div>
+<canvas id="gameCanvas" width="300" height="300"></canvas>
+		<button id="reload" type="button">reload game</button>
 	</div>
 </html>
 <script>
@@ -81,9 +89,9 @@ let myInterval = setInterval(advanceSnake, 150);
 function endGame(){
 	clearInterval(myInterval);
 	console.log("gameOver")
-	ctx.fillStyle = "red"
+	ctx.fillStyle = "red";
 	ctx.font = "30px Arial";
-	ctx.strokeText("GAME OVER", 130, 50);
+	ctx.fillText("GAME OVER", 55, 70);
 }
 //add controls 
 document.addEventListener('keydown', function(event) {
